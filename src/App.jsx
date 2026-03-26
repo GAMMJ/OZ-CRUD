@@ -1,17 +1,19 @@
+import { lazy, Suspense } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import RootLayout from './layouts/RootLayout'
-import MainPage from './pages/MainPage'
-import WritePage from './pages/WritePage'
-import DetailPage from './pages/DetailPage'
+
+const MainPage = lazy(() => import('./pages/MainPage'))
+const WritePage = lazy(() => import('./pages/WritePage'))
+const DetailPage = lazy(() => import('./pages/DetailPage'))
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
     children: [
-      { index: true, element: <MainPage /> },
-      { path: 'write', element: <WritePage /> },
-      { path: 'posts/:id', element: <DetailPage /> },
+      { index: true, element: <Suspense fallback={null}><MainPage /></Suspense> },
+      { path: 'write', element: <Suspense fallback={null}><WritePage /></Suspense> },
+      { path: 'posts/:id', element: <Suspense fallback={null}><DetailPage /></Suspense> },
     ],
   },
 ])
