@@ -25,5 +25,5 @@ export function usePost(id) {
     fetchPost()
   }, [id])
 
-  return { post, loading, error }
+  return { post, setPost, loading, error }
 }

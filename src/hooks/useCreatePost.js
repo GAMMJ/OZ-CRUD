@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { supabase } from '../lib/supabase'
 import { nanoid } from 'nanoid'
 import dayjs from 'dayjs'
+import usePostStore from '../store/usePostStore'
 
 export function useCreatePost() {
+  const { addPost } = usePostStore()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
@@ -27,6 +29,7 @@ export function useCreatePost() {
       return false
     }
 
+    addPost(newPost)
     return true
   }
 

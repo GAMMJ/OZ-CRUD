@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
+import usePostStore from '../store/usePostStore'
 
 export function usePosts() {
-  const [posts, setPosts] = useState([])
+  const { posts, setPosts } = usePostStore()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 

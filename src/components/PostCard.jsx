@@ -1,7 +1,18 @@
 import { useNavigate } from 'react-router-dom'
+import { useDeletePost } from '../hooks/useDeletePost'
 
 export default function PostCard({ post }) {
   const navigate = useNavigate()
+  const { deletePost } = useDeletePost()
+
+  async function handleDelete(e) {
+    e.stopPropagation()
+
+    const confirmed = window.confirm('정말 삭제하시겠습니까?')
+    if (!confirmed) return
+
+    await deletePost(post.id)
+  }
 
   return (
     <div
@@ -16,7 +27,7 @@ export default function PostCard({ post }) {
       <div className="flex justify-end mt-4">
         <button
           className="bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-600 transition-colors"
-          onClick={(e) => e.stopPropagation()}
+          onClick={handleDelete}
         >
           삭제
         </button>
